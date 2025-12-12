@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&family=Rubik+Mono+One&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+* {
+    text-align: center;
+    color: #fff;
+    font-family: "Rubik";
+}
+
+body {
+    position: absolute;
+    background-color: #000;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.full {
+    display: block;
+    background-color: #111;
+    width: -webkit-fill-available;
+    height: fit-content;
+    margin-top: 4%;
+    margin-bottom: 4%;
+    margin-left: 3%;
+    margin-right: 3%;
+    padding: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border-radius: 3ch;
+    box-shadow: 0px 0px 30px #fff;
+}
+
+.full h1 {
+    text-align: left;
+    font-weight: 600;
+    font-size: 250%;
+}
+
+.full h2 {
+    text-align: left;
+    font-weight: 500;
+    font-size: 210%;
+}
+.full h3 {
+    text-align: left;
+    font-weight: 400;
+    font-size: 170%;
+}
+
+.full p, .full ul, .full li {
+    text-align: left;
+    font-size: 120%;
+    font-weight: 300;
+}
+
+.tl, .dl, .r {
+    display: block;
+    background-color: #111;
+    width: 45%;
+    margin-top: 3%;
+    margin-bottom: 4%;
+    margin-left: 3%;
+    margin-right: 3%;
+    border-radius: 3ch;
+    box-shadow: 0px 0px 30px #fff;
+}
+
+.tl {
+    float: left;
+    height: 40%;
+    text-align: left;
+}
+
+.tl p {
+    text-align: left;
+    padding: 7.5%;
+    padding-left: 4%;
+    margin: 0;
+    font-size: 500%;
+    font-family: "Rubik";
+    font-weight: 500;
+}
+
+.dl {
+    float: left;
+    height: 40%;
+    margin-top: 0%;
+}
+
+.dl p {
+    text-align: center;
+    padding: 13%;
+    padding-top: 8%;
+    padding-bottom: 0%;
+    margin: 0;
+    font-size: 200%;
+    font-family: "Rubik";
+    font-weight: 400;
+}
+
+.dl a {
+    text-align: center;
+    padding: 13%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    margin: 0;
+    font-size: 200%;
+    font-family: "Rubik";
+    font-weight: 300;
+}
+
+.dl img {
+    height: 4ch;
+    padding: 0;
+    margin: 0;
+    padding-right: 12%;
+}
+
+.r {
+    float: right;
+    height: 90%;
+    margin-left: 0%;
+}
+
+.r p, .r h1 {
+    text-align: center;
+    padding: 5%;
+    padding-bottom: 0%;
+    margin: 0;
+    font-size: 150%;
+    font-family: "Rubik";
+    font-weight: 350;
+}
+
+.r h1 {
+    font-weight: 600;
+    font-size: 250%;
+}

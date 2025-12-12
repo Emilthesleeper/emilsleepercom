@@ -1,0 +1,94 @@
+{
+    "projects": [
+        {
+            "name": "Smooth Gamemode Switcher",
+            "description": {
+                "de": "Smooth Gamemode Switcher deutsch",
+                "en": "Smooth Gamemode Switcher englisch"
+            },
+            "image": "smoothgamemodeswitcher.jpg",
+            "url": "https://smoothgamemodeswitcher.emilsleeper.com/",
+            "debug_url": "http://localhost:5004/"
+        },
+        {
+            "name": "Light Flight",
+            "description": {
+                "de": "Light Flight deutsch",
+                "en": "Light Flight englisch"
+            },
+            "image": "lightflight.jpg",
+            "url": "https://lightflight.emilsleeper.com/",
+            "debug_url": "http://localhost:5003/"
+        },
+        {
+            "name": "Stadtführer Görlitz",
+            "description": {
+                "de": "Stadtführer Görlitz deutsch",
+                "en": "Stadtführer Görlitz englisch"
+            },
+            "image": "stadtfuehrer.jpg",
+            "url": "https://stadt.emilsleeper.com/",
+            "debug_url": "http://localhost:5001/"
+        },
+        {
+            "name": "Light Command Hotkeys",
+            "description": {
+                "de": "Light Command Hotkeys deutsch",
+                "en": "Light Command Hotkeys englisch"
+            },
+            "image": "lightcommandhotkeys.jpg",
+            "url": "https://lightcommandhotkeys.emilsleeper.com/",
+            "debug_url": "http://localhost:5005/"
+        },
+        {
+            "name": "",
+            "description": {
+                "de": "deutsch",
+                "en": "englisch"
+            },
+            "image": "sth.jpeg",
+            "url": "https://.emilsleeper.com/",
+            "debug_url": "http://localhost:500/"
+        },
+        {
+            "name": "",
+            "description": {
+                "de": "deutsch",
+                "en": "englisch"
+            },
+            "image": "sth.jpeg",
+            "url": "https://.emilsleeper.com/",
+            "debug_url": "http://localhost:500/"
+        },
+        {
+            "name": "",
+            "description": {
+                "de": "deutsch",
+                "en": "englisch"
+            },
+            "image": "sth.jpeg",
+            "url": "https://.emilsleeper.com/",
+            "debug_url": "http://localhost:500/"
+        },
+        {
+            "name": "",
+            "description": {
+                "de": "deutsch",
+                "en": "englisch"
+            },
+            "image": "sth.jpeg",
+            "url": "https://.emilsleeper.com/",
+            "debug_url": "http://localhost:500/"
+        },
+        {
+            "name": "",
+            "description": {
+                "de": "deutsch",
+                "en": "englisch"
+            },
+            "image": "sth.jpeg",
+            "url": "https://.emilsleeper.com/",
+            "debug_url": "http://localhost:500/"
+        }
+    ]
+}
