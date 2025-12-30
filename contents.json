@@ -3,8 +3,8 @@
         {
             "name": "Smooth Gamemode Switcher",
             "description": {
-                "de": "Smooth Gamemode Switcher deutsch",
-                "en": "Smooth Gamemode Switcher englisch"
+                "de": "Smooth Gamemode Switcher ist ein Mod, der es dir ermöglicht, mit einer einzigen Taste schnell zwischen den Spielmodi deiner Wahl in der gewünschten Reihenfolge zu wechseln. Beim Wechsel vom Zuschauermodus zum Kreativmodus befindest du dich im Flugmodus, wenn du dich in einer bestimmten Höhe über dem Boden befindest. Diese Zahl kannst du anpassen.",
+                "en": "Smooth Gamemode Switcher is a mod allowing you to have one hotkey to quickly switch between the gamemodes of your choice in your desired order. When switching from spectator to creative you will be in fly mode if you are at a specific height over the floor, you can adjust this number."
             },
             "image": "smoothgamemodeswitcher.jpg",
             "url": "https://smoothgamemodeswitcher.emilsleeper.com/",
@@ -13,8 +13,8 @@
         {
             "name": "Light Flight",
             "description": {
-                "de": "Light Flight deutsch",
-                "en": "Light Flight englisch"
+                "de": "Light Flight ist ein leichtgewichtiger Minecraft Mod, der einen Hotkey hinzufügt, der standardmäßig die Caps Lock-Taste ist, die als normale Taste verwendet wird, nicht als Toggle-Taste, um den Flugmodus zu aktivieren oder zu deaktivieren, egal welcher Spielmodus du gerade bist.",
+                "en": "Light Flight is a lightweight Minecraft Mod, that adds one hotkey, which by default is the caps lock key, used as a normal key, not in a toggle way, to enable or disable flight mode, no matter what gamemode you currently are in."
             },
             "image": "lightflight.jpg",
             "url": "https://lightflight.emilsleeper.com/",
@@ -23,72 +23,12 @@
         {
             "name": "Stadtführer Görlitz",
             "description": {
-                "de": "Stadtführer Görlitz deutsch",
-                "en": "Stadtführer Görlitz englisch"
+                "de": "Die App \"Stadtführer Görlitz\", gibt basierend auf dem Standort beim Laufen durch Görlitz zufällig Informationen über Gebäude und Sehenswürdigkeiten in der Nähe. Die App entsteht im Rahmen einer Arbeit um zu zeigen, wie gefährlich Standortortung sein kann, und wie man sie gut einsetzen kann.",
+                "en": "The app \"Stadtführer Görlitz\" gives, based on the location while walking through Görlitz, random information about buildings and sights nearby. The app is created as part of a work to show how dangerous location tracking can be, and how to use it well."
             },
             "image": "stadtfuehrer.jpg",
             "url": "https://stadt.emilsleeper.com/",
             "debug_url": "http://localhost:5001/"
-        },
-        {
-            "name": "Light Command Hotkeys",
-            "description": {
-                "de": "Light Command Hotkeys deutsch",
-                "en": "Light Command Hotkeys englisch"
-            },
-            "image": "lightcommandhotkeys.jpg",
-            "url": "https://lightcommandhotkeys.emilsleeper.com/",
-            "debug_url": "http://localhost:5005/"
-        },
-        {
-            "name": "",
-            "description": {
-                "de": "deutsch",
-                "en": "englisch"
-            },
-            "image": "sth.jpeg",
-            "url": "https://.emilsleeper.com/",
-            "debug_url": "http://localhost:500/"
-        },
-        {
-            "name": "",
-            "description": {
-                "de": "deutsch",
-                "en": "englisch"
-            },
-            "image": "sth.jpeg",
-            "url": "https://.emilsleeper.com/",
-            "debug_url": "http://localhost:500/"
-        },
-        {
-            "name": "",
-            "description": {
-                "de": "deutsch",
-                "en": "englisch"
-            },
-            "image": "sth.jpeg",
-            "url": "https://.emilsleeper.com/",
-            "debug_url": "http://localhost:500/"
-        },
-        {
-            "name": "",
-            "description": {
-                "de": "deutsch",
-                "en": "englisch"
-            },
-            "image": "sth.jpeg",
-            "url": "https://.emilsleeper.com/",
-            "debug_url": "http://localhost:500/"
-        },
-        {
-            "name": "",
-            "description": {
-                "de": "deutsch",
-                "en": "englisch"
-            },
-            "image": "sth.jpeg",
-            "url": "https://.emilsleeper.com/",
-            "debug_url": "http://localhost:500/"
         }
     ]
 }

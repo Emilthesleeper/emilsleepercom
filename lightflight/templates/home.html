@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    <link rel="icon" href="{{url_for('static',filename='lightflight-logo.jpg')}}">
+    <title>Light Flight</title>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div class="nav-left">
+                <div class="logo-section">
+                    <img src="{{url_for('static',filename='lightflight-logo.jpg')}}" alt="Logo" class="logo-img">
+                    <div class="project-title">Light Flight</div>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="logo-section">
+                    <img src="{{url_for('static',filename='profile.jpg')}}" alt="Logo" class="logo-img">
+                    <div class="brand-text">
+                        <div class="brand-name">EmilSleeper</div>
+                        <div class="brand-subtitle">Emil Wege</div>
+                    </div>
+                </div>
+                <ul>
+                    <li><a href="https://emilsleeper.com/">Go Back</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="info" style="background-image: url('{{url_for('static',filename='lightflight-dark.jpg')}}');">
+        <div class="left">
+            <p class="title">Light Flight</p>
+            {% for loader in compatibility %}
+            <p class="version">{{loader.capitalize()}}: {{', '.join(compatibility[loader])}}</p>
+            {% endfor %}
+            <p class="description">Light Flight is a lightweight Mod, that adds one hotkey, which by default is the caps lock key, used as a normal key, not in a toggle way, to enable or disable flight mode, no matter what gamemode you currently are in.</p>
+            <div class="download">
+                <a href="https://www.curseforge.com/minecraft/mc-mods/light-flight" target="_blank" rel="noopener noreferrer" style="background: linear-gradient(to bottom, #ff4400, #5e220a);">
+                    <img src="{{url_for('static',filename='curseforge.webp')}}" alt="CurseForge" style="filter: brightness(0%) invert(100%);">
+                    <p>CurseForge Download</p>
+                </a>
+            </div>
+        </div>
+        <div class="right">
+            <img src="{{url_for('static',filename='lightflight-logo.jpg')}}" alt="">
+        </div>
+    </div>
+    <div class="gallery">
+        <p>Gallery is empty</p>
+    </div>
+</body>
+</html>

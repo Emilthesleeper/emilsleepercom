@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    <link rel="icon" href="{{url_for('static',filename='smoothgamemodeswitcher-logo.jpg')}}">
+    <title>Smooth Gamemode Switcher</title>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div class="nav-left">
+                <div class="logo-section">
+                    <img src="{{url_for('static',filename='smoothgamemodeswitcher-logo.jpg')}}" alt="Logo" class="logo-img">
+                    <div class="project-title">Smooth Gamemode Switcher</div>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="logo-section">
+                    <img src="{{url_for('static',filename='profile.jpg')}}" alt="Logo" class="logo-img">
+                    <div class="brand-text">
+                        <div class="brand-name">EmilSleeper</div>
+                        <div class="brand-subtitle">Emil Wege</div>
+                    </div>
+                </div>
+                <ul>
+                    <li><a href="https://emilsleeper.com/">Go Back</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="info" style="background-image: url('{{url_for('static',filename='smoothgamemodeswitcher-dark.jpg')}}');">
+        <div class="left">
+            <p class="title">Smooth Gamemode Switcher</p>
+            {% for loader in compatibility %}
+            <p class="version">{{loader.capitalize()}}: {{', '.join(compatibility[loader])}}</p>
+            {% endfor %}
+            <p class="description">Smooth Gamemode Switcher is a mod allowing you to have one hotkey to quickly switch between the gamemodes of your choice in your desired order. When switching from spectator to creative you will be in fly mode if you are at a specific height over the floor, you can adjust this number.</p>
+            <div class="download">
+                <a href="https://modrinth.com/mod/smooth-gamemode-switcher" target="_blank" rel="noopener noreferrer" style="background: linear-gradient(to bottom, #1bd96b, #107f3e);">
+                    <img src="{{url_for('static',filename='modrinth.webp')}}" alt="Modrinth" style="filter: brightness(0%) invert(100%);">
+                    <p>Modrinth Download</p>
+                </a>
+                <a href="https://www.curseforge.com/minecraft/mc-mods/smooth-gamemode-switcher" target="_blank" rel="noopener noreferrer" style="background: linear-gradient(to bottom, #ff4400, #5e220a);">
+                    <img src="{{url_for('static',filename='curseforge.webp')}}" alt="CurseForge" style="filter: brightness(0%) invert(100%);">
+                    <p>CurseForge Download</p>
+                </a>
+            </div>
+        </div>
+        <div class="right">
+            <img src="{{url_for('static',filename='smoothgamemodeswitcher-logo.jpg')}}" alt="">
+        </div>
+    </div>
+    <div class="gallery">
+        <iframe src="https://www.youtube.com/embed/WNCdTAe91vY?si=7573so-BUALEpav7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+</body>
+</html>

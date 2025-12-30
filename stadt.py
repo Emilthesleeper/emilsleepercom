@@ -9,7 +9,7 @@ import geopy.distance
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-stadt = flask.Flask(__name__, static_folder="stadt/static", template_folder="stadt/templates")
+stadt = flask.Flask(__name__, template_folder="stadt/templates")
 stadt.secret_key="SECRET_KEY"
 limiter = Limiter(
     app=stadt,
@@ -29,10 +29,6 @@ def get_sort_key(object):
 @stadt.route("/")
 def home():
     return render_template("home.html")
-
-@stadt.route("/documentation")
-def docs():
-    return render_template("docs.html")
 
 @stadt.route("/datenschutz")
 def pp():

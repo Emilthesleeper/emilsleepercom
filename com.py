@@ -13,6 +13,11 @@ com.config['JSON_AS_ASCII'] = False
 with open("contents.json", "r", encoding="utf-8") as f:
     contents = json.load(f)
 
+for project in contents["projects"]:
+    for lang in ["de", "en"]:
+        if project["description"].get(lang):
+            project["description"][lang] = project["description"][lang][:100] + ("..." if len(project["description"][lang]) > 100 else "")
+
 @com.route("/")
 def home():
     return render_template("home.html", projects=contents["projects"], debug=com.debug)
