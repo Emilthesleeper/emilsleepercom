@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
-    <link rel="icon" href="{{url_for('static',filename='smoothgamemodeswitcher-logo.jpg')}}">
-    <title>Smooth Gamemode Switcher</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="icon" href="{{url_for('static',filename='bbs-logo.jpg')}}">
+    <title>BBS Movie Studio</title>
 </head>
 <body>
     <header>
@@ -13,8 +13,8 @@
             <button class="menu-toggle" id="menuToggle">☰</button>
             <div class="nav-left">
                 <div class="logo-section">
-                    <img src="{{url_for('static',filename='smoothgamemodeswitcher-logo.jpg')}}" alt="Logo" class="logo-img">
-                    <div class="project-title">Smooth Gamemode Switcher</div>
+                    <img src="{{url_for('static',filename='bbs-logo.jpg')}}" alt="Logo" class="logo-img">
+                    <div class="project-title">BBS Movie Studio</div>
                 </div>
             </div>
             <div class="nav-right">
@@ -31,13 +31,13 @@
             </div>
         </div>
     </header>
-    <div class="info" style="background-image: url('{{url_for('static',filename='smoothgamemodeswitcher-dark.jpg')}}');">
+    <div class="info" style="background-image: url('{{url_for('static',filename='bbs1.jpeg')}}'); background-position: center; background-repeat: no-repeat; background-size: cover;">
         <div class="left">
-            <p class="title">Smooth Gamemode Switcher</p>
+            <p class="title">BBS Movie Studio</p>
             {% for loader in compatibility %}
             <p class="version">{{loader.capitalize()}}: {{', '.join(compatibility[loader])}}</p>
             {% endfor %}
-            <p class="description">Smooth Gamemode Switcher is a mod allowing you to have one hotkey to quickly switch between the gamemodes of your choice in your desired order. When switching from spectator to creative you will be in fly mode if you are at a specific height over the floor, you can adjust this number.</p>
+            <p class="description">BBS Movie Studio is a compact film modpack centered around the BBS mod by McHorse, with which you can create complex scenes, animations, and complete films in Minecraft. Thanks to Blockbench model support, finely adjustable movements, and numerous pre-made BBS assets, you can recreate almost any scene and animate it precisely.</p>
             <div class="download">
                 <a href="https://modrinth.com/mod/smooth-gamemode-switcher" target="_blank" rel="noopener noreferrer" style="background: linear-gradient(to bottom, #1bd96b, #107f3e);">
                     <img src="{{url_for('static',filename='modrinth.webp')}}" alt="Modrinth" style="filter: brightness(0%) invert(100%);">
@@ -50,11 +50,13 @@
             </div>
         </div>
         <div class="right">
-            <img src="{{url_for('static',filename='smoothgamemodeswitcher-logo.jpg')}}" alt="">
+            <img src="{{url_for('static',filename='bbs-logo.jpg')}}" alt="">
         </div>
     </div>
-    <div class="gallery" style="grid-template-columns: repeat(1, minmax(0, 1fr));">
-        <iframe src="https://www.youtube.com/embed/WNCdTAe91vY?si=7573so-BUALEpav7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="gallery">
+        <img src="{{url_for('static',filename='bbs1.jpeg')}}" alt="Gallery Image">
+        <img src="{{url_for('static',filename='bbs2.jpeg')}}" alt="Gallery Image">
+        <img src="{{url_for('static',filename='bbs3.jpeg')}}" alt="Gallery Image">
     </div>
     <footer>
         <p class="footer">{{ footer }}</p>

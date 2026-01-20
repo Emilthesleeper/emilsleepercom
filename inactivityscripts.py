@@ -1,5 +1,4 @@
 import sys, os
-import wsgi as wsgi_mod
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
@@ -7,10 +6,20 @@ if ROOT not in sys.path:
 import flask, os, requests, time, json
 from flask import render_template
 
-smoothgamemodeswitcher = flask.Flask(__name__, template_folder="smoothgamemodeswitcher/templates")
+inactivityscripts = flask.Flask(__name__, template_folder="inactivityscripts/templates")
+
+@inactivityscripts.route("/")
+def home():
+    compatibility = get_modrinth_compatibility("inactivity-scripts")
+    try:
+        import wsgi as wsgi_mod
+        footer = getattr(wsgi_mod, "FOOTER", "")
+    except Exception:
+        footer = ""
+    return render_template("home.html", compatibility=compatibility, footer=footer)
 
 def get_modrinth_compatibility(slug: str):
-    cache_path = os.path.join(os.path.dirname(__file__), "smoothgamemodeswitcher_cache.json")
+    cache_path = os.path.join(os.path.dirname(__file__), "inactivityscripts_cache.json")
     # Return cached value if less than 1 hour old
     try:
         if os.path.exists(cache_path):
@@ -47,15 +56,3 @@ def get_modrinth_compatibility(slug: str):
         return result
     except Exception:
         return {}
-
-compatibility = get_modrinth_compatibility("smooth-gamemode-switcher")
-
-@smoothgamemodeswitcher.route("/")
-def home():
-    if getattr(wsgi_mod, "debug", ""):
-        compatibility = get_modrinth_compatibility("smooth-gamemode-switcher")
-    try:
-        footer = getattr(wsgi_mod, "FOOTER", "")
-    except Exception:
-        footer = ""
-    return render_template("home.html", compatibility=compatibility, footer=footer)

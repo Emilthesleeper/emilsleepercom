@@ -49,8 +49,12 @@
             <img src="{{url_for('static',filename='stadt-logo.png')}}" alt="">
         </div>
     </div>
-    <div class="gallery">
+    <div class="gallery" style="align-items: center; display: flex;">
         <p>Gallery is empty</p>
     </div>
+    <footer>
+        <p class="footer">{{ footer }}</p>
+    </footer>
+    <script src="{{ url_for('static', filename='image-modal.js') }}"></script>
 </body>
 </html>

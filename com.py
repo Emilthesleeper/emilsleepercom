@@ -20,7 +20,19 @@ for project in contents["projects"]:
 
 @com.route("/")
 def home():
-    return render_template("home.html", projects=contents["projects"], debug=com.debug)
+    if com.debug:
+        with open("contents.json", "r", encoding="utf-8") as f:
+            contents = json.load(f)
+        for project in contents["projects"]:
+            for lang in ["de", "en"]:
+                if project["description"].get(lang):
+                    project["description"][lang] = project["description"][lang][:100] + ("..." if len(project["description"][lang]) > 100 else "")
+    try:
+        import wsgi as wsgi_mod
+        footer = getattr(wsgi_mod, "FOOTER", "")
+    except Exception:
+        footer = ""
+    return render_template("home.html", projects=contents["projects"], debug=com.debug, footer=footer)
 
 @com.route("/mcdownload_secret_asjdß09283zernaszdhouih23")
 def mcdownload_secret():
@@ -52,4 +64,9 @@ def mcdownload_secret():
             "date": date,
             "name": name
         })
-    return render_template("mcdownload_secret.html", servers=servers)
+    try:
+        import wsgi as wsgi_mod
+        footer = getattr(wsgi_mod, "FOOTER", "")
+    except Exception:
+        footer = ""
+    return render_template("mcdownload_secret.html", servers=servers, footer=footer)

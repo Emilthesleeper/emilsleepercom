@@ -1,4 +1,5 @@
 import sys, os
+import wsgi as wsgi_mod
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
@@ -6,13 +7,7 @@ if ROOT not in sys.path:
 import flask, os, requests, time, json, re
 from flask import render_template
 
-
 lightflight = flask.Flask(__name__, template_folder="lightflight/templates")
-
-@lightflight.route("/")
-def home():
-    compatibility = get_curseforge_compatibility("light-flight")
-    return render_template("home.html", compatibility=compatibility)
 
 def get_curseforge_compatibility(slug: str):
     global curseforge_api_token
@@ -48,3 +43,15 @@ def get_curseforge_compatibility(slug: str):
         return result
     except Exception:
         return None
+
+compatibility = get_curseforge_compatibility("light-flight")
+
+@lightflight.route("/")
+def home():
+    if getattr(wsgi_mod, "debug", ""):
+        compatibility = get_curseforge_compatibility("light-flight")
+    try:
+        footer = getattr(wsgi_mod, "FOOTER", "")
+    except Exception:
+        footer = ""
+    return render_template("home.html", compatibility=compatibility, footer=footer)

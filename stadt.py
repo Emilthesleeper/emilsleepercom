@@ -28,11 +28,21 @@ def get_sort_key(object):
 
 @stadt.route("/")
 def home():
-    return render_template("home.html")
+    try:
+        import wsgi as wsgi_mod
+        footer = getattr(wsgi_mod, "FOOTER", "")
+    except Exception:
+        footer = ""
+    return render_template("home.html", footer=footer)
 
 @stadt.route("/datenschutz")
 def pp():
-    return render_template("privacy policy.html")
+    try:
+        import wsgi as wsgi_mod
+        footer = getattr(wsgi_mod, "FOOTER", "")
+    except Exception:
+        footer = ""
+    return render_template("privacy policy.html", footer=footer)
 
 @stadt.route("/api/reset")
 def reset_session():

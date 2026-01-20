@@ -32,10 +32,10 @@
                         <button id="langToggle" class="icon-btn" aria-haspopup="true" aria-expanded="false">
                             <img src="{{url_for('static',filename='language.svg')}}" alt="Language" class="icon">
                         </button>
-                        <ul class="lang-menu" id="langMenu">
-                            <li data-lang="de">Deutsch</li>
-                            <li data-lang="en">English</li>
-                        </ul>
+                            <ul class="lang-menu" id="langMenu">
+                                <li><a href="?lang=de"><img src="{{url_for('static',filename='germany.png')}}" alt="Deutsch" class="lang-flag">Deutsch</a></li>
+                                <li><a href="?lang=en"><img src="{{url_for('static',filename='english.png')}}" alt="English" class="lang-flag">English</a></li>
+                            </ul>
                     </div>
                     <button id="themeToggle" class="icon-btn" aria-pressed="false" title="Toggle theme">
                         <img src="{{url_for('static',filename='sun.svg')}}" alt="Moon" class="icon" id="modetoggle">
@@ -45,25 +45,40 @@
         </div>
     </header>
     <main>
-        <section class="project-gallery">
+        <div class="filter-bar" role="toolbar" aria-label="Project filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="minecraft">Minecraft</button>
+            <button class="filter-btn" data-filter="music">Music (Coming soon)</button>
+            <button class="filter-btn" data-filter="games">Games</button>
+            <button class="filter-btn" data-filter="apps">Apps</button>
+        </div>
+        <section class="project-gallery" id="projectGallery">
+            {% set lang = request.args.get('lang', 'de') %}
             {% for project in projects %}
-            <div class="project">
-                {% if debug %}
-                    <a href="{{project['debug_url']}}" target="_blank">
+            <div class="project {% if project.get('url') == '#' %}under-construction{% endif %}" data-category="{{ project.get('category', 'other') }}">
+                {% if project.get('is_folder') %}
+                    <a href="#" class="folder-trigger" data-filter="{{ project.get('category','other') }}">
+                        <img src="{{url_for('static',filename=project['image'])}}" alt="Image unavailable">
+                        <div class="folder-overlay"></div>
+                        <h1 class="folder-title">{{ project['name'] }}</h1>
+                    </a>
                 {% else %}
-                    <a href="{{project['url']}}" target="_blank">
+                    {% if debug and project.get('debug_url') %}
+                        <a href="{{project['debug_url']}}" target="_blank">
+                    {% else %}
+                        <a href="{{project['url']}}" target="_blank">
+                    {% endif %}
+                        <img src="{{url_for('static',filename=project['image'])}}" alt="Image unavailable">
+                        <h1>{{project['name']}}</h1>
+                    </a>
+                    <p>{{ project['description'].get(lang, project['description'].get('de', '')) }}</p>
                 {% endif %}
-                <img src="{{url_for('static',filename=project['image'])}}" alt="Image unavailable">
-                <h1>{{project['name']}}</h3>
-                </a>
-                {% set lang = request.args.get('lang', 'de') %}
-                <p>{{ project['description'].get(lang, project['description'].get('de', '')) }}</p>
             </div>
             {% endfor %}
         </section>
     </main>
     <footer>
-        <p class="footer">&copy; 2024-2025 Emil Wege. All Rights Reserved.</p>
+        <p class="footer">{{ footer }}</p>
     </footer>
     <script>
         const images = [
@@ -82,6 +97,35 @@
             return Promise.all(promises);
         }
         preloadImages();
+    </script>
+    <script>
+        (function(){
+            try{
+                // ensure language menu is hidden by default
+                const ld = document.getElementById('langDropdown');
+                const lt = document.getElementById('langToggle');
+                if(ld) { ld.classList.remove('open'); }
+                if(lt) { lt.setAttribute('aria-expanded','false'); }
+
+                const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+                const projects = Array.from(document.querySelectorAll('.project'));
+                const folderTriggers = Array.from(document.querySelectorAll('.folder-trigger'));
+
+                function showFilter(filter){
+                    filterBtns.forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+                    projects.forEach(p => {
+                        const cat = p.dataset.category || 'other';
+                        p.style.display = (filter === 'all' || cat === filter) ? 'block' : 'none';
+                    });
+                }
+
+                window.applyFilter = showFilter;
+                filterBtns.forEach(b => b.addEventListener('click', () => showFilter(b.dataset.filter)));
+                folderTriggers.forEach(a => a.addEventListener('click', (e) => { e.preventDefault(); showFilter(a.dataset.filter || 'other'); }));
+                // initial
+                showFilter('all');
+            }catch(e){console.warn(e)}
+        })();
     </script>
     <script>
         const menuToggle = document.getElementById('menuToggle');
@@ -110,12 +154,11 @@
             langDropdown.classList.toggle('open');
         });
 
-        langMenu.querySelectorAll('li').forEach(item => {
-            item.addEventListener('click', () => {
-                const lang = item.getAttribute('data-lang');
-                const url = new URL(window.location.href);
-                url.searchParams.set('lang', lang);
-                window.location.href = url.toString();
+        // anchors handle navigation; close menu after click
+        langMenu.querySelectorAll('a').forEach(item => {
+            item.addEventListener('click', (e) => {
+                langDropdown.classList.remove('open');
+                langToggle.setAttribute('aria-expanded', 'false');
             });
         });
 
@@ -135,10 +178,9 @@
             const stored = localStorage.getItem('theme');
             if (stored) {
                 setTheme(stored);
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                setTheme('dark');
             } else {
-                setTheme('light');
+                // Default to dark mode on main page
+                setTheme('dark');
             }
         })();
 
@@ -152,5 +194,6 @@
             }
         });
     </script>
+    <script src="{{ url_for('static', filename='image-modal.js') }}"></script>
 </body>
-</html>
+</html> 

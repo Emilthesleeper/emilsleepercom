@@ -20,3 +20,14 @@ __pycache__/com.cpython-310.pyc
 __pycache__/lightflight.cpython-310.pyc
 __pycache__/smoothgamemodeswitcher.cpython-310.pyc
 __pycache__/stadt.cpython-310.pyc
+zahlenraten/game_data.json
+zahlenraten/game_stats.json
+zahlenraten/request_stats.json
+__pycache__/zahlenraten.cpython-310.pyc
+__pycache__/bbs_movie_studio.cpython-310.pyc
+__pycache__/curseforge_api_token.cpython-310.pyc
+__pycache__/inactivityscripts.cpython-310.pyc
+__pycache__/wsgi.cpython-310.pyc
+smoothgamemodeswitcher_cache.json
+inactivityscripts_cache.json
+bbs_movie_studio_cache.json

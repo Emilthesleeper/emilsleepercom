@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Zahlenraten</title>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div class="nav-left">
+                <div class="logo-section">
+                    <img src="{{url_for('static',filename='zahlenraten-logo.jpg')}}" alt="Logo" class="logo-img">
+                    <div class="project-title">Zahlenraten</div>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="logo-section">
+                    <img src="{{url_for('static',filename='profile.jpg')}}" alt="Logo" class="logo-img">
+                    <div class="brand-text">
+                        <div class="brand-name">EmilSleeper</div>
+                        <div class="brand-subtitle">Emil Wege</div>
+                    </div>
+                </div>
+                <ul>
+                    <li><a href="https://emilsleeper.com/">Go Back</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding: 2rem;">
+        <div id="loginScreen" class="login-screen active-screen">
+            <div class="container">
+                <h1 class="title">Zahlenraten</h1>
+                <p class="subtitle">Willkommen! Wähle eine Spieloption.</p>
+                
+                <div style="text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 15px;">
+                    📊 Anfragen: <span id="RequestCount">0</span><br>
+                    🔢 Spiele gespielt: <span id="gamesPlayedCount">0</span>
+                </div>
+                
+                <div class="login-card">
+                <div class="input-group" style="opacity: 0.5; cursor: not-allowed;">
+                        <button class="btn btn-secondary" disabled style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <span>🔐 Mit Google anmelden</span>
+                        </button>
+                        <small style="text-align: center; color: var(--muted);">Kommt bald...</small>
+                    </div>
+
+                    <div style="margin: 20px 0; text-align: center; color: var(--muted);">oder</div>
+
+                    <button class="btn btn-primary" id="guestLoginBtn" style="width: 100%; margin-bottom: 10px;">
+                        👤 Als Gast spielen
+                    </button>
+
+                    <div id="guestNameSection" style="display: none;">
+                        <div class="input-group">
+                            <input 
+                                type="text" 
+                                id="nameInput" 
+                                placeholder="Dein Name (max. 30 Zeichen)" 
+                                maxlength="30"
+                            >
+                            <small id="nameStatus" style="color: var(--muted);"></small>
+                        </div>
+                        <div id="loginError" class="error"></div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-primary" id="loginBtn" style="flex: 1;">Spielen</button>
+                            <button class="btn btn-secondary" id="cancelLoginBtn" style="flex: 1;">Abbrechen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="lobbyScreen" class="lobby-screen">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h1 class="title" style="margin: 0;"></h1>
+                    <div style="font-size: 14px; color: var(--muted);">
+                        👤 <span id="usernameDisplay">Gast</span>
+                    </div>
+                </div>
+
+                <div style="text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 15px;">
+                    📊 Anfragen: <span id="RequestCount2">0</span><br>
+                    🔢 Spiele gespielt: <span id="gamesPlayedCount2">0</span>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-success" id="createLobbyBtn">Neue Lobby erstellen</button>
+                    <button class="btn btn-primary" id="joinLobbyBtn">Lobby beitreten</button>
+                </div>
+
+                <div id="joinLobbyForm" style="display: none; margin-top: 20px;">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="joinCodeInput" 
+                            placeholder="Lobby-Code eingeben" 
+                            maxlength="5"
+                        >
+                    </div>
+                    <div id="joinError" class="error"></div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-primary" id="joinConfirmBtn" style="flex: 1;">Beitreten</button>
+                        <button class="btn btn-secondary" id="joinCancelBtn" style="flex: 1;">Abbrechen</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" id="logoutBtn" style="width: 100%; margin-top: 10px;">
+                    Abmelden
+                </button>
+            </div>
+        </div>
+
+        <div id="gameLobbyScreen" class="lobby-screen">
+            <div class="container">
+                <h1 class="title">Spiellobby</h1>
+
+                <div class="code-box">
+                    <div style="font-size: 14px; color: var(--muted); margin-bottom: 10px;">Lobby-Code:</div>
+                    <div class="code-value" id="displayCode">XXXXX</div>
+                </div>
+
+                <div style="text-align: center; margin: 15px 0;">
+                    <button class="btn btn-secondary" id="copyCodeBtn" style="width: 100%;">
+                        Code kopieren
+                    </button>
+                </div>
+
+                <h3 style="margin-top: 30px; margin-bottom: 15px;">Spieler (<span id="memberCount">0</span>)</h3>
+                <div class="members-list" id="membersList"></div>
+
+                <!-- Lobby Settings (visible to everyone) -->
+                <div id="lobbySettingsDisplay" style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin: 20px 0;">
+                    <h3 style="margin-top: 0;">Lobby-Einstellungen</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <div style="color: var(--muted); font-size: 12px;">Zahlenbereich</div>
+                            <div style="font-weight: 600; font-size: 18px;"><span id="displayMinRange">1</span> - <span id="displayMaxRange">100</span></div>
+                        </div>
+                        <div>
+                            <div style="color: var(--muted); font-size: 12px;">Max. Spieler</div>
+                            <div style="font-weight: 600; font-size: 18px;"><span id="displayMaxPlayers">10</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="hostControls" style="display: none; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin: 20px 0;">
+                    <h3 style="margin-top: 0;">Lobby-Einstellungen (Bearbeiten)</h3>
+                    
+                    <div class="input-group">
+                        <label style="font-weight: 600;">Zahlenbereich:</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <div style="flex: 1;">
+                                <input type="number" id="minRange" min="1" max="999" value="1" style="width: 100%;">
+                            </div>
+                            <span style="color: var(--muted);">bis</span>
+                            <div style="flex: 1;">
+                                <input type="number" id="maxRange" min="2" max="1000" value="100" style="width: 100%;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label style="font-weight: 600;">Max. Spieler:</label>
+                        <input type="number" id="maxPlayers" min="2" max="100" value="10" style="width: 100%;">
+                    </div>
+
+                    <div class="input-group">
+                        <label style="font-weight: 600;">Host-Rechte abgeben:</label>
+                        <select id="transferHostSelect" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border); background: #111827; color: #fff;">
+                            <option value="">-- Wähle einen Spieler --</option>
+                        </select>
+                        <button class="btn btn-secondary" id="transferHostBtn" style="width: 100%; margin-top: 10px;">
+                            Host-Rechte übertragen
+                        </button>
+                    </div>
+
+                    <button class="btn btn-success" id="startGameBtn" style="width: 100%; margin-top: 15px;">
+                        Spiel starten
+                    </button>
+                </div>
+
+                <button class="btn btn-danger" id="leaveLobbyBtn" style="width: 100%; margin-top: 20px;">
+                    Lobby verlassen
+                </button>
+
+                <div id="lobbyError" class="error"></div>
+            </div>
+        </div>
+
+        <div id="gameScreen" class="game-screen">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h1 class="title" style="margin: 0;">Zahlenraten</h1>
+                    <div id="gameCodeDisplay" style="display: none; background: var(--bg-secondary); border: 1px solid var(--primary); padding: 8px 12px; border-radius: 6px; cursor: pointer;">
+                        <span style="color: var(--muted); font-size: 12px;">Code: </span>
+                        <span id="gameCode" style="font-weight: bold; color: var(--primary); font-size: 16px; font-family: monospace;">XXXXX</span>
+                    </div>
+                </div>
+                <p class="subtitle">Zahlenbereich: <span id="rangeDisplay">1-100</span></p>
+
+                <div id="indicatorBox" style="display: none; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center; font-weight: 600; font-size: 18px;">
+                    <span id="indicatorText"></span>
+                </div>
+
+                <div id="turnInfo" class="info-box" style="text-align: center; font-weight: 600;">
+                    <span id="turnText"></span>
+                </div>
+
+                <div style="background: #111827; border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin: 20px 0; max-height: 300px; overflow-y: auto;">
+                    <div id="messageLog" style="min-height: 100px;">
+                        <p style="color: var(--muted); text-align: center;">Warte auf den ersten Tipp...</p>
+                    </div>
+                </div>
+
+                <div id="guessContainer">
+                    <div class="guess-input">
+                        <input 
+                            type="number" 
+                            id="guessInput" 
+                            placeholder="Dein Tipp" 
+                            min="1"
+                        >
+                        <button class="btn btn-primary" id="guessBtn">Raten</button>
+                    </div>
+                </div>
+
+                <div id="gameOverContainer" style="display: none;">
+                    <div class="info-box" style="background: #dcfce7; color: #166534; border-left-color: #10b981; text-align: center;">
+                        <h3 style="margin: 0;">🎉 Gewonnen!</h3>
+                        <p id="winnerText"></p>
+                    </div>
+                    <div id="hostGameOverControls" style="display: none; margin-top: 15px;">
+                        <button class="btn btn-success" id="resetGameBtn" style="width: 100%; margin-bottom: 10px;">
+                            Nächstes Spiel
+                        </button>
+                        <button class="btn btn-secondary" id="dissolveGameBtn" style="width: 100%;">
+                            Zurück zur Lobby
+                        </button>
+                    </div>
+                </div>
+                
+                <button class="btn btn-danger" id="leaveGameBtn" style="width: 100%; margin-top: 20px;">
+                    Lobby verlassen
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p class="footer">{{ footer }}</p>
+    </footer>
+
+    <script>
+        let currentUser = null;
+        let currentLobby = null;
+        let isHost = false;
+        let lobbyUpdateInterval = null;
+        let gameUpdateInterval = null;
+        let isMyTurn = false;
+        let isInGameOverState = false;
+        let cachedLobbyConfig = {};
+
+        async function checkExistingSession() {
+            try {
+                const result = await apiCall('/api/session-status', 'GET');
+                if (result.logged_in) {
+                    currentUser = {
+                        id: result.user_id,
+                        username: result.username
+                    };
+                    const usernameEl = document.getElementById('usernameDisplay');
+                    if (usernameEl) {
+                        usernameEl.textContent = result.username;
+                    }
+                    
+                    if (result.lobby_code) {
+                        // User was in a lobby, restore it
+                        currentLobby = result.lobby_code;
+                        try {
+                            const lobbyInfo = await apiCall(`/api/lobby-info/${currentLobby}`, 'GET');
+                            if (lobbyInfo.game_started) {
+                                isHost = lobbyInfo.members.find(m => m.player_id === currentUser.id)?.is_host || false;
+                                startGame();
+                            } else {
+                                isHost = lobbyInfo.members.find(m => m.player_id === currentUser.id)?.is_host || false;
+                                showGameLobby();
+                            }
+                        } catch (e) {
+                            // Lobby no longer exists
+                            showScreen('lobbyScreen');
+                        }
+                    } else {
+                        // User is logged in but not in a lobby
+                        showScreen('lobbyScreen');
+                    }
+                    return;
+                }
+            } catch (e) {
+                console.error('Error checking session:', e);
+            }
+            // No active session, show login screen
+            showScreen('loginScreen');
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('[id$="Screen"]').forEach(el => {
+                el.classList.remove('active-screen');
+            });
+            document.getElementById(screenId).classList.add('active-screen');
+        }
+
+        function showError(elementId, message) {
+            const errorEl = document.getElementById(elementId);
+            errorEl.textContent = message;
+            errorEl.classList.add('show');
+            setTimeout(() => errorEl.classList.remove('show'), 5000);
+        }
+
+        async function apiCall(endpoint, method = 'POST', data = null) {
+            try {
+                const options = {
+                    method,
+                    headers: { 'Content-Type': 'application/json' }
+                };
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+                const response = await fetch(endpoint, options);
+                const result = await response.json();
+                if (!response.ok) {
+                    throw new Error(result.error || 'API error: ' + response.status);
+                }
+                return result;
+            } catch (error) {
+                console.error('API error:', error);
+                throw error;
+            }
+        }
+
+        async function updateRequestCount() {
+            try {
+                const statsResult = await apiCall('/api/stats-summary', 'GET');
+                const totalRequests = statsResult.total_requests;
+                const gamesPlayedCount = statsResult.games_played;
+                
+                const lobbyCountEl = document.getElementById('RequestCount');
+                const gamesPlayedCountEl = document.getElementById('gamesPlayedCount');
+                const lobbyCountEl2 = document.getElementById('RequestCount2');
+                const gamesPlayedCountEl2 = document.getElementById('gamesPlayedCount2');
+                if (lobbyCountEl) {
+                    lobbyCountEl.textContent = totalRequests;
+                }
+                if (gamesPlayedCountEl) {
+                    gamesPlayedCountEl.textContent = gamesPlayedCount;
+                }
+                if (lobbyCountEl2) {
+                    lobbyCountEl2.textContent = totalRequests;
+                }
+                if (gamesPlayedCountEl2) {
+                    gamesPlayedCountEl2.textContent = gamesPlayedCount;
+                }
+            } catch (error) {
+                console.error('Error updating request count:', error);
+            }
+        }
+
+        setInterval(updateRequestCount, 1000);
+        updateRequestCount();
+
+        document.getElementById('guestLoginBtn').addEventListener('click', () => {
+            document.getElementById('guestNameSection').style.display = 'block';
+            document.getElementById('nameInput').focus();
+        });
+
+        document.getElementById('cancelLoginBtn').addEventListener('click', () => {
+            document.getElementById('guestNameSection').style.display = 'none';
+            document.getElementById('nameInput').value = '';
+        });
+
+        document.getElementById('nameInput').addEventListener('input', async (e) => {
+            const name = e.target.value.trim();
+            const statusEl = document.getElementById('nameStatus');
+            
+            if (!name) {
+                statusEl.textContent = '';
+                return;
+            }
+
+            if (name.length > 30) {
+                statusEl.textContent = '❌ Name zu lang';
+                statusEl.style.color = '#ef4444';
+                return;
+            }
+
+            try {
+                const result = await apiCall('/api/check-name', 'POST', { name });
+                if (result.available) {
+                    statusEl.textContent = '✅ Name verfügbar';
+                    statusEl.style.color = '#10b981';
+                } else {
+                    statusEl.textContent = `❌ Name vergeben (freigegeben in ${result.expires_in}s)`;
+                    statusEl.style.color = '#ef4444';
+                }
+            } catch (error) {
+                statusEl.textContent = '';
+            }
+        });
+
+        document.getElementById('loginBtn').addEventListener('click', async () => {
+            const name = document.getElementById('nameInput').value.trim();
+            if (!name) {
+                showError('loginError', 'Bitte geben Sie einen Namen ein');
+                return;
+            }
+
+            try {
+                const result = await apiCall('/api/login', 'POST', { name });
+                currentUser = {
+                    id: result.user_id,
+                    username: result.username
+                };
+                const usernameEl = document.getElementById('usernameDisplay');
+                if (usernameEl) {
+                    usernameEl.textContent = result.username;
+                }
+                showScreen('lobbyScreen');
+            } catch (error) {
+                showError('loginError', 'Login fehlgeschlagen: ' + (error.message || 'Unbekannter Fehler'));
+            }
+        });
+
+        document.getElementById('createLobbyBtn').addEventListener('click', async () => {
+            try {
+                const result = await apiCall('/api/create-lobby', 'POST', {
+                    min_range: 1,
+                    max_range: 100,
+                    max_players: 10
+                });
+                currentLobby = result.lobby_code;
+                isHost = true;
+                showGameLobby();
+            } catch (error) {
+                showError('loginError', 'Lobby-Erstellung fehlgeschlagen');
+            }
+        });
+
+        document.getElementById('joinLobbyBtn').addEventListener('click', () => {
+            document.getElementById('joinLobbyForm').style.display = 'block';
+            document.getElementById('joinCodeInput').focus();
+        });
+
+        document.getElementById('joinCancelBtn').addEventListener('click', () => {
+            document.getElementById('joinLobbyForm').style.display = 'none';
+        });
+
+        document.getElementById('joinConfirmBtn').addEventListener('click', async () => {
+            const code = document.getElementById('joinCodeInput').value.trim().toUpperCase();
+            if (!code) {
+                showError('joinError', 'Bitte geben Sie einen Code ein');
+                return;
+            }
+
+            try {
+                const result = await apiCall('/api/join-lobby', 'POST', { code });
+                currentLobby = result.lobby_code;
+                isHost = false;
+                
+                // If joined as spectator, go directly to game screen
+                if (result.spectator) {
+                    await startGame();
+                } else {
+                    showGameLobby();
+                }
+            } catch (error) {
+                showError('joinError', 'Lobby nicht gefunden oder voll');
+            }
+        });
+
+        async function showGameLobby() {
+            document.getElementById('displayCode').textContent = currentLobby;
+            document.getElementById('joinLobbyForm').style.display = 'none';
+            showScreen('gameLobbyScreen');
+            updateLobbyInfo();
+            
+            // Clear any existing interval to avoid duplicates
+            if (lobbyUpdateInterval) clearInterval(lobbyUpdateInterval);
+            lobbyUpdateInterval = setInterval(updateLobbyInfo, 500);
+        }
+
+        async function updateLobbyInfo() {
+            try {
+                const result = await apiCall(`/api/lobby-info/${currentLobby}`, 'GET');
+                
+                // Update members with wins
+                const membersList = document.getElementById('membersList');
+                membersList.innerHTML = result.members.map(member => `
+                    <div class="member-item">
+                        <span class="member-name">${escapeHtml(member.name)} (${member.wins} Siege)</span>
+                        ${member.is_host ? '<span class="member-badge">Host</span>' : ''}
+                    </div>
+                `).join('');
+                
+                document.getElementById('memberCount').textContent = result.members.length;
+                
+                // Update lobby settings display (visible to everyone)
+                document.getElementById('displayMinRange').textContent = result.min_range;
+                document.getElementById('displayMaxRange').textContent = result.max_range;
+                document.getElementById('displayMaxPlayers').textContent = result.max_players;
+                
+                // Update host controls based on current user's host status
+                const userIsHost = result.members.find(m => m.player_id === currentUser.id)?.is_host || false;
+                if (userIsHost) {
+                    document.getElementById('hostControls').style.display = 'block';
+                    
+                    // Only update config values if they differ from the server
+                    if (!cachedLobbyConfig.min_range || cachedLobbyConfig.min_range !== result.min_range) {
+                        document.getElementById('minRange').value = result.min_range;
+                        cachedLobbyConfig.min_range = result.min_range;
+                    }
+                    if (!cachedLobbyConfig.max_range || cachedLobbyConfig.max_range !== result.max_range) {
+                        document.getElementById('maxRange').value = result.max_range;
+                        cachedLobbyConfig.max_range = result.max_range;
+                    }
+                    if (!cachedLobbyConfig.max_players || cachedLobbyConfig.max_players !== result.max_players) {
+                        document.getElementById('maxPlayers').value = result.max_players;
+                        cachedLobbyConfig.max_players = result.max_players;
+                    }
+                    
+                    // Update transfer host dropdown
+                    const select = document.getElementById('transferHostSelect');
+                    const current = select.value;
+                    select.innerHTML = '<option value="">-- Wähle einen Spieler --</option>';
+                    result.members.filter(m => !m.is_host).forEach(member => {
+                        select.innerHTML += `<option value="${member.player_id}">${escapeHtml(member.name)}</option>`;
+                    });
+                    if (current) select.value = current;
+                } else {
+                    document.getElementById('hostControls').style.display = 'none';
+                }
+                
+                // Update isHost variable for current user
+                isHost = userIsHost;
+
+                if (result.game_started) {
+                    clearInterval(lobbyUpdateInterval);
+                    startGame();
+                }
+            } catch (error) {
+                console.error('Failed to update lobby info:', error);
+            }
+        }
+
+        // HOST CONTROLS
+        document.getElementById('startGameBtn').addEventListener('click', async () => {
+            try {
+                await apiCall(`/api/start-game/${currentLobby}`, 'POST', {});
+            } catch (error) {
+                showError('lobbyError', 'Fehler beim Starten des Spiels');
+            }
+        });
+
+        // Save lobby config changes
+        const configInputs = ['minRange', 'maxRange', 'maxPlayers'];
+        configInputs.forEach(inputId => {
+            document.getElementById(inputId).addEventListener('change', async () => {
+                const minRange = parseInt(document.getElementById('minRange').value);
+                const maxRange = parseInt(document.getElementById('maxRange').value);
+                const maxPlayers = parseInt(document.getElementById('maxPlayers').value);
+                
+                // Validate
+                if (minRange < 1 || maxRange < minRange || maxRange > 1000) {
+                    showError('lobbyError', 'Ungültiger Zahlenbereich');
+                    return;
+                }
+                if (maxPlayers < 2 || maxPlayers > 100) {
+                    showError('lobbyError', 'Ungültige Spieleranzahl');
+                    return;
+                }
+                
+                try {
+                    await apiCall(`/api/update-lobby-config/${currentLobby}`, 'POST', {
+                        min_range: minRange,
+                        max_range: maxRange,
+                        max_players: maxPlayers
+                    });
+                } catch (error) {
+                    showError('lobbyError', 'Fehler beim Aktualisieren der Einstellungen');
+                }
+            });
+        });
+
+        document.getElementById('transferHostBtn').addEventListener('click', async () => {
+            const playerId = document.getElementById('transferHostSelect').value;
+            if (!playerId) {
+                showError('lobbyError', 'Bitte wähle einen Spieler');
+                return;
+            }
+            try {
+                await apiCall(`/api/transfer-host/${currentLobby}`, 'POST', { player_id: playerId });
+                document.getElementById('transferHostSelect').value = '';
+                updateLobbyInfo();
+            } catch (error) {
+                showError('lobbyError', 'Fehler beim Übertragen der Rechte');
+            }
+        });
+
+        // COPY CODE
+        document.getElementById('copyCodeBtn').addEventListener('click', () => {
+            navigator.clipboard.writeText(currentLobby).then(() => {
+                const btn = document.getElementById('copyCodeBtn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Kopiert!';
+                setTimeout(() => btn.textContent = originalText, 2000);
+            });
+        });
+
+        // GAME
+        async function startGame() {
+            isInGameOverState = false;
+            showScreen('gameScreen');
+            // Show and setup game code display
+            document.getElementById('gameCodeDisplay').style.display = 'block';
+            document.getElementById('gameCode').textContent = currentLobby;
+            document.getElementById('gameCodeDisplay').addEventListener('click', toggleGameCode);
+            updateGameInfo();
+            // Clear any existing interval to avoid duplicates
+            if (gameUpdateInterval) clearInterval(gameUpdateInterval);
+            gameUpdateInterval = setInterval(updateGameInfo, 500);
+        }
+
+        function toggleGameCode() {
+            const display = document.getElementById('gameCodeDisplay');
+            const code = document.getElementById('gameCode');
+            if (code.style.display === 'none') {
+                code.style.display = 'inline';
+                display.title = '';
+            } else {
+                code.style.display = 'none';
+                display.title = 'Click to show';
+            }
+        }
+
+        async function updateGameInfo() {
+            try {
+                const result = await apiCall(`/api/lobby-info/${currentLobby}`, 'GET');
+                
+                // If game is no longer started, go back to lobby
+                if (!result.game_started) {
+                    clearInterval(gameUpdateInterval);
+                    isInGameOverState = false;
+                    document.getElementById('guessContainer').style.display = 'block';
+                    document.getElementById('gameOverContainer').style.display = 'none';
+                    document.getElementById('indicatorBox').style.display = 'none';
+                    showGameLobby();
+                    return;
+                }
+                
+                // If user is a spectator, show spectator notice
+                const guessContainer = document.getElementById('guessContainer');
+                if (result.is_spectator) {
+                    guessContainer.innerHTML = '<div style="padding: 15px; background: #111827; border: 1px solid var(--border); border-radius: 8px; text-align: center; color: var(--muted);"><strong>🎭 Du schaust zu</strong> - Warte bis die nächste Runde beginnt</div>';
+                    guessContainer.style.display = 'block';
+                } else {
+                    // Restore normal guess input
+                    if (!guessContainer.innerHTML.includes('input')) {
+                        guessContainer.innerHTML = '<div class="guess-input"><input type="number" id="guessInput" placeholder="Dein Tipp" min="1"><button class="btn btn-primary" id="guessBtn">Raten</button></div>';
+                        document.getElementById('guessBtn').addEventListener('click', handleGuessClick);
+                        document.getElementById('guessInput').addEventListener('keypress', e => {
+                            if (e.key === 'Enter') handleGuessClick();
+                        });
+                    }
+                }
+                
+                // Update range display
+                document.getElementById('rangeDisplay').textContent = `${result.min_range}-${result.max_range}`;
+                
+                // Find current turn player name
+                const currentPlayer = result.members.find(m => m.player_id === result.current_turn);
+                const isMyTurn = result.current_turn === currentUser.id && !result.is_spectator;
+                
+                document.getElementById('turnText').innerHTML = isMyTurn 
+                    ? '🎯 <strong>Du bist dran!</strong>'
+                    : `⏳ <strong>${escapeHtml(currentPlayer?.name || 'Unbekannt')}</strong> ist dran`;
+                
+                // Update input visibility (only show for non-spectators whose turn it is)
+                if (!result.is_spectator) {
+                    guessContainer.style.display = isMyTurn ? 'block' : 'none';
+                }
+                
+                // Update message log
+                const messageLog = document.getElementById('messageLog');
+                if (result.messages.length === 0) {
+                    messageLog.innerHTML = '<p style="color: var(--muted); text-align: center;">Warte auf den ersten Tipp...</p>';
+                } else {
+                    messageLog.innerHTML = result.messages.map(msg => {
+                        let emoji = '❓';
+                        let color = 'var(--muted)';
+                        if (msg.result === 'correct') {
+                            emoji = '✅';
+                            color = '#10b981';
+                        } else if (msg.result === 'low') {
+                            emoji = '⬆️';
+                            color = '#f59e0b';
+                        } else if (msg.result === 'high') {
+                            emoji = '⬇️';
+                            color = '#ef4444';
+                        }
+                        return `<div style="padding: 8px; margin: 5px 0; background: var(--bg-secondary); border-radius: 4px; color: ${color};">
+                            ${emoji} <strong>${escapeHtml(msg.player)}</strong>: ${msg.guess} ${msg.result === 'correct' ? '(RICHTIG!)' : ''}
+                        </div>`;
+                    }).join('');
+                    messageLog.parentElement.scrollTop = messageLog.parentElement.scrollHeight;
+                }
+                
+                // Show indicator for last guess result
+                if (result.messages.length > 0) {
+                    const lastMsg = result.messages[result.messages.length - 1];
+                    const indicatorBox = document.getElementById('indicatorBox');
+                    const indicatorText = document.getElementById('indicatorText');
+                    
+                    if (lastMsg.result === 'correct') {
+                        indicatorBox.style.display = 'block';
+                        indicatorBox.style.background = '#10b981';
+                        indicatorBox.style.color = '#fff';
+                        indicatorText.textContent = '✅ Richtig!';
+                        
+                        // Hide guess container when correct number is guessed
+                        guessContainer.style.display = 'none';
+                        
+                        // Game is won
+                        if (!isInGameOverState) {
+                            isInGameOverState = true;
+                            clearInterval(gameUpdateInterval);
+                            showGameOver(lastMsg.player);
+                            // Restart polling even in game-over state so we detect when host starts new game
+                            gameUpdateInterval = setInterval(updateGameInfo, 500);
+                        }
+                    } else if (lastMsg.result === 'low') {
+                        indicatorBox.style.display = 'block';
+                        indicatorBox.style.background = '#f59e0b';
+                        indicatorBox.style.color = '#000';
+                        indicatorText.textContent = '⬆️ Höher';
+                    } else if (lastMsg.result === 'high') {
+                        indicatorBox.style.display = 'block';
+                        indicatorBox.style.background = '#fff';
+                        indicatorBox.style.color = '#000';
+                        indicatorText.textContent = '⬇️ Niedriger';
+                    }
+                } else {
+                    // No messages - if we were in game over state, a new game started
+                    if (isInGameOverState) {
+                        isInGameOverState = false;
+                        const gameOverContainer = document.getElementById('gameOverContainer');
+                        gameOverContainer.style.display = 'none';
+                        document.getElementById('guessContainer').style.display = 'block';
+                        document.getElementById('indicatorBox').style.display = 'none';
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to update game info:', error);
+            }
+        }
+
+        function showGameOver(winner) {
+            document.getElementById('guessContainer').style.display = 'none';
+            document.getElementById('gameOverContainer').style.display = 'block';
+            document.getElementById('winnerText').textContent = `${escapeHtml(winner)} hat die Zahl erraten!`;
+            
+            if (isHost) {
+                document.getElementById('hostGameOverControls').style.display = 'block';
+            }
+        }
+
+        document.getElementById('guessBtn').addEventListener('click', handleGuessClick);
+
+        async function handleGuessClick() {
+            const minRange = parseInt(document.getElementById('rangeDisplay').textContent.split('-')[0]);
+            const maxRange = parseInt(document.getElementById('rangeDisplay').textContent.split('-')[1]);
+            const guess = parseInt(document.getElementById('guessInput').value);
+            
+            if (!guess || guess < minRange || guess > maxRange) {
+                showError('lobbyError', `Bitte geben Sie eine Zahl zwischen ${minRange} und ${maxRange} ein`);
+                return;
+            }
+
+            try {
+                await apiCall('/api/guess', 'POST', {
+                    lobby_code: currentLobby,
+                    guess: guess
+                });
+                document.getElementById('guessInput').value = '';
+                updateGameInfo();
+            } catch (error) {
+                showError('lobbyError', 'Fehler beim Raten');
+            }
+        }
+
+        document.getElementById('resetGameBtn').addEventListener('click', async () => {
+            try {
+                document.getElementById('guessContainer').style.display = 'block';
+                document.getElementById('gameOverContainer').style.display = 'none';
+                isInGameOverState = false;
+                await apiCall(`/api/start-game/${currentLobby}`, 'POST', {});
+                // Force immediate update
+                updateGameInfo();
+                // Restart polling to ensure we stay in sync
+                if (gameUpdateInterval) clearInterval(gameUpdateInterval);
+                gameUpdateInterval = setInterval(updateGameInfo, 500);
+            } catch (error) {
+                showError('lobbyError', 'Fehler beim Neustarten');
+            }
+        });
+
+        document.getElementById('dissolveGameBtn').addEventListener('click', async () => {
+            try {
+                await apiCall(`/api/reset-game/${currentLobby}`, 'POST', {});
+                document.getElementById('guessContainer').style.display = 'block';
+                document.getElementById('gameOverContainer').style.display = 'none';
+                isInGameOverState = false;
+                // Clear the game update interval before switching screens
+                if (gameUpdateInterval) clearInterval(gameUpdateInterval);
+                gameUpdateInterval = null;
+                showGameLobby();
+            } catch (error) {
+                showError('lobbyError', 'Fehler beim Zurücksetzen');
+            }
+        });
+
+        // LEAVE
+        document.getElementById('leaveLobbyBtn').addEventListener('click', leaveLobby);
+        document.getElementById('leaveGameBtn').addEventListener('click', leaveLobby);
+
+        async function leaveLobby() {
+            clearInterval(lobbyUpdateInterval);
+            clearInterval(gameUpdateInterval);
+            try {
+                await apiCall(`/api/leave-lobby/${currentLobby}`, 'POST', {});
+            } catch (error) {
+                console.error('Error leaving lobby:', error);
+            }
+            currentLobby = null;
+            document.getElementById('guessInput').value = '';
+            showScreen('lobbyScreen');
+        }
+
+        // LOGOUT
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            clearInterval(lobbyUpdateInterval);
+            clearInterval(gameUpdateInterval);
+            try {
+                await apiCall('/api/logout', 'POST', {});
+            } catch (error) {
+                console.error('Error logging out:', error);
+            }
+            currentLobby = null;
+            currentUser = null;
+            document.getElementById('nameInput').value = '';
+            document.getElementById('guessInput').value = '';
+            showScreen('loginScreen');
+        });
+
+        // Utility
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Enter key support
+        document.getElementById('nameInput').addEventListener('keypress', e => {
+            if (e.key === 'Enter') document.getElementById('loginBtn').click();
+        });
+        document.getElementById('joinCodeInput').addEventListener('keypress', e => {
+            if (e.key === 'Enter') document.getElementById('joinConfirmBtn').click();
+        });
+        document.getElementById('guessInput').addEventListener('keypress', e => {
+            if (e.key === 'Enter') document.getElementById('guessBtn').click();
+        });
+
+        // Check session on page load
+        checkExistingSession();
+    </script>
+    <script src="{{ url_for('static', filename='image-modal.js') }}"></script>
+</body>
+</html> 
