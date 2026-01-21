@@ -10,8 +10,14 @@ com = flask.Flask(__name__, template_folder="com/templates")
 
 com.config['JSON_AS_ASCII'] = False
 
-with open("contents.json", "r", encoding="utf-8") as f:
-    contents = json.load(f)
+CONTENTS_FILE = os.path.join(os.path.dirname(__file__), "contents.json")
+
+try:
+    with open(CONTENTS_FILE, "r", encoding="utf-8") as f:
+        contents = json.load(f)
+except Exception as e:
+    print(f"Error loading contents.json: {e}")
+    contents = {"projects": []}
 
 for project in contents["projects"]:
     for lang in ["de", "en"]:
@@ -20,19 +26,20 @@ for project in contents["projects"]:
 
 @com.route("/")
 def home():
+    global contents
     if com.debug:
-        with open("contents.json", "r", encoding="utf-8") as f:
-            contents = json.load(f)
-        for project in contents["projects"]:
-            for lang in ["de", "en"]:
-                if project["description"].get(lang):
-                    project["description"][lang] = project["description"][lang][:100] + ("..." if len(project["description"][lang]) > 100 else "")
+        try:
+            with open(CONTENTS_FILE, "r", encoding="utf-8") as f:
+                contents = json.load(f)
+        except Exception as e:
+            print(f"Error loading contents.json: {e}")
     try:
         import wsgi as wsgi_mod
         footer = getattr(wsgi_mod, "FOOTER", "")
     except Exception:
         footer = ""
-    return render_template("home.html", projects=contents["projects"], debug=com.debug, footer=footer)
+    
+    return render_template("home.html", projects=contents.get("projects", []), debug=com.debug, footer=footer)
 
 @com.route("/mcdownload_secret_asjdß09283zernaszdhouih23")
 def mcdownload_secret():

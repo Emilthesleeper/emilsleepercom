@@ -14,10 +14,9 @@
             <nav class="nav-left" id="navMenu">
                 <ul>
                     <li><a href="/">Projekte</a></li>
-                    <li><a href="/about">Über mich</a></li>
-                    <li><a href="/contact">Kontakt</a></li>
-                    <li><a href="https://example.com" target="_blank">Auffüllen bitte</a></li>
-                </ul>
+                    <li style="pointer-events: none; color: var(--muted);"><a href="/about" style="color: inherit;">Über mich</a></li>
+                    <li style="pointer-events: none; color: var(--muted);"><a href="/contact" style="color: inherit;">Kontakt</a></li>
+                    <!-- <li><a href="https://example.com" target="_blank">Auffüllen bitte</a></li> -->
             </nav>
             <div class="nav-right">
                 <div class="logo-section">
@@ -165,7 +164,6 @@
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
-            modetoggle.src = theme === 'dark' ? '{{url_for("static", filename="moon.svg")}}' : '{{url_for("static", filename="sun.svg")}}';
             themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
         }
 

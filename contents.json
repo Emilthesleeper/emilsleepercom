@@ -1,11 +1,22 @@
 {
     "projects": [
         {
+            "name": "Zahlenraten",
+            "category": "games",
+            "description": {
+                "de": "Zahlenraten ist ein interaktives Multiplayer-Zahlenratespiel, bei dem sich Spieler über Lobbies zusammenfinden und gemeinsam eine geheime Zahl erraten. Der Host erstellt eine Lobby mit individuell einstellbarem Zahlenbereich und...",
+                "en": "Zahlenraten is an interactive multiplayer number guessing game where players gather in lobbies to collectively guess a secret number. The host creates a lobby with individually adjustable number range and player limit..."
+            },
+            "image": "zahlenraten-banner.jpg",
+            "url": "https://zahlenraten.emilsleeper.com/",
+            "debug_url": "http://localhost:5005/"
+        },
+        {
             "name": "BBS Movie Studio",
             "category": "minecraft",
             "description": {
-                "de": "BBS Movie Studio ist ein kompaktes Film‑Modpack rund um den BBS Mod von McHorse, mit dem du in Minecraft komplexe Szenen, Animationen und komplette Filme erstellen kannst. Durch Blockbench‑Model‑Support, fein justierbare Bewegungen und zahlreiche vorgefertigte BBS‑Assets kannst du nahezu jede Szene nachbauen und präzise animieren.\n\nDas Pack wurde in Version 2.x von Grund auf neu aufgebaut, von 67 auf etwa 42 Mods verschlankt und läuft dadurch deutlich flüssiger auf den meisten Systemen. Enthalten sind unter anderem Walk, Jog, Run mit angepasster Gehgeschwindigkeit für saubere Aufnahmen, Axiom für schnellen Set‑ und Landschaftsbau sowie optionale Shader wie Photon, Nostalgia, Bliss und iterationT.\n\nFür die Optik bringt BBS Movie Studio dynamische Beleuchtung (LambDynamicLights), 3D‑Skin‑Layer und das AVPBR Retextured Resource Pack mit, um hochwertige, cineastische Bilder zu ermöglichen. Das Modpack wird aktiv gepflegt (aktuell BBS 1.7.7 in Version 2.1.1), enthält zusätzliche BBS‑Modelle und Inhalte von der offiziellen BBS‑Discord‑Community und eignet sich sowohl für Solo‑Filmemacher als auch für Server‑Projekte.",
-                "en": "BBS Movie Studio is a compact film modpack centered around the BBS mod by McHorse, with which you can create complex scenes, animations, and complete films in Minecraft. Thanks to Blockbench model support, finely adjustable movements, and numerous pre-made BBS assets, you can recreate almost any scene and animate it precisely.\n\nThe pack was rebuilt from the ground up in version 2.x, slimmed down from 67 to about 42 mods, and therefore runs much smoother on most systems. It includes, among others, Walk, Jog, Run with adjusted walking speed for clean recordings, Axiom for quick set and landscape building, as well as optional shaders like Photon, Nostalgia, Bliss, and iterationT.\n\nFor visuals, BBS Movie Studio brings dynamic lighting (LambDynamicLights), 3D Skin Layers, and the AVPBR Retextured resource pack to enable high-quality, cinematic images. The modpack is actively maintained (currently BBS 1.7.7 in version 2.1.1), contains additional BBS models and content from the official BBS Discord community, and is suitable for both solo filmmakers and server"
+                "de": "BBS Movie Studio ist ein kompaktes Film‑Modpack rund um den BBS Mod von McHorse, mit dem du in Minecraft komplexe Szenen, Animationen und komplette Filme erstellen kannst. Durch Blockbench‑Model‑Support, fein justierbare Bewegungen und zahlreiche...",
+                "en": "BBS Movie Studio is a compact film modpack centered around the BBS mod by McHorse, with which you can create complex scenes, animations, and complete films in Minecraft. Thanks to Blockbench model support, finely adjustable movements, and numerous..."
             },
             "image": "bbs-banner.jpg",
             "url": "https://bbsmoviestudio.emilsleeper.com/",
@@ -15,8 +26,8 @@
             "name": "Smooth Gamemode Switcher",
             "category": "minecraft",
             "description": {
-                "de": "Smooth Gamemode Switcher ist ein Mod, der es dir ermöglicht, mit einer einzigen Taste schnell zwischen den Spielmodi deiner Wahl in der gewünschten Reihenfolge zu wechseln. Beim Wechsel vom Zuschauermodus zum Kreativmodus befindest du dich im Flugmodus, wenn du dich in einer bestimmten Höhe über dem Boden befindest. Diese Zahl kannst du anpassen.",
-                "en": "Smooth Gamemode Switcher is a mod allowing you to have one hotkey to quickly switch between the gamemodes of your choice in your desired order. When switching from spectator to creative you will be in fly mode if you are at a specific height over the floor, you can adjust this number."
+                "de": "Smooth Gamemode Switcher ist ein Mod, der es dir ermöglicht, mit einer einzigen Taste schnell zwischen den Spielmodi deiner Wahl in der gewünschten Reihenfolge zu wechseln. Beim Wechsel vom Zuschauermodus zum Kreativmodus befindest du...",
+                "en": "Smooth Gamemode Switcher is a mod allowing you to have one hotkey to quickly switch between the gamemodes of your choice in your desired order. When switching from spectator to creative you will be in fly mode if you are at a..."
             },
             "image": "smoothgamemodeswitcher.jpg",
             "url": "https://smoothgamemodeswitcher.emilsleeper.com/",
@@ -26,8 +37,8 @@
             "name": "Light Flight",
             "category": "minecraft",
             "description": {
-                "de": "Light Flight ist ein leichtgewichtiger Minecraft Mod, der einen Hotkey hinzufügt, der standardmäßig die Caps Lock-Taste ist, die als normale Taste verwendet wird, nicht als Toggle-Taste, um den Flugmodus zu aktivieren oder zu deaktivieren, egal welcher Spielmodus du gerade bist.",
-                "en": "Light Flight is a lightweight Minecraft Mod, that adds one hotkey, which by default is the caps lock key, used as a normal key, not in a toggle way, to enable or disable flight mode, no matter what gamemode you currently are in."
+                "de": "Light Flight ist ein leichtgewichtiger Minecraft Mod, der einen Hotkey hinzufügt, der standardmäßig die Caps Lock-Taste ist, die als normale Taste verwendet wird, nicht als Toggle-Taste, um den Flugmodus zu aktivieren oder zu...",
+                "en": "Light Flight is a lightweight Minecraft Mod, that adds one hotkey, which by default is the caps lock key, used as a normal key, not in a toggle way, to enable or disable flight mode, no matter what gamemode you currently..."
             },
             "image": "lightflight.jpg",
             "url": "https://lightflight.emilsleeper.com/",
@@ -37,30 +48,19 @@
             "name": "Inactivity Scripts",
             "category": "minecraft",
             "description": {
-                "de": "Inactivity Scripts ist ein Paper Plugin, das Befehle/Skripte bei vier verschiedenen Ereignissen ausführt, wenn der Server startet, wenn der Server stoppt und wenn sich die Spieleranzahl auf 1 oder 0 ändert.\nDu kannst entscheiden, ob du einen Haltepunkt setzen möchtest, der auf das Ende deines Skripts wartet, dies wird für den Serverstopp empfohlen, da das Plugin beim Serverstopp deaktiviert wird und dein Befehl/Skript abstürzen könnte.\nDas Plugin wurde nur in 1.21.9 auf Windows 11 und 1.21.11 auf Debian 12 getestet, sollte aber mit allen 1.21 Versionen funktionieren.",
-                "en": "Inactivity Scripts is a Paper Plugin that runs Commands/Scripts on four different events, when the server starts, when the server stops, and when the player count changes to 1 or 0.\nYou can decide if you want to set a breakpoint, that waits for your script to finish, this is recommended for the server stop, because the plugin being disabled at server stop might crash your Command/Script.\nThe plugin was only tested in 1.21.9 on Windows 11 and 1.21.11 on Debian 12 but should work with all 1.21 versions."
+                "de": "Inactivity Scripts ist ein Paper Plugin, das Befehle/Skripte bei vier verschiedenen Ereignissen ausführt, wenn der Server startet, wenn der Server stoppt und wenn sich die Spieleranzahl auf 1 oder 0 ändert. Du kannst entscheiden, ob du einen...",
+                "en": "Inactivity Scripts is a Paper Plugin that runs Commands/Scripts on four different events, when the server starts, when the server stops, and when the player count changes to 1 or 0. You can decide if you want to set a breakpoint, that waits for..."
             },
             "image": "inactivityscripts.jpg",
             "url": "https://inactivityscripts.emilsleeper.com/",
             "debug_url": "http://localhost:5006/"
         },
         {
-            "name": "Zahlenraten",
-            "category": "games",
-            "description": {
-                "de": "Zahlenraten ist ein interaktives Multiplayer-Zahlenratespiel, bei dem sich Spieler über Lobbies zusammenfinden und gemeinsam eine geheime Zahl erraten. Der Host erstellt eine Lobby mit individuell einstellbarem Zahlenbereich und maximaler Spieleranzahl. Neue Spieler treten über einen 5-stelligen Lobby-Code bei. Alle Spieler nehmen nacheinander an Tipprunden teil und erhalten Feedback, ob die gesuchte Zahl höher oder niedriger ist – farblich kodiert für bessere Übersichtlichkeit. Das Spiel bietet Echtzeit-Synchronisierung aller Spieler, einen Spectator-Modus für Spieler die einer laufenden Partie beitreten, und Anti-Cheating-Measures zur fairen Gewinnvergabe. Sitzungen bleiben 10 Minuten aktiv, und der Spielverlauf wird verwaltet, um nahtlose Erlebnisse zu bieten. Statistiken erfassen anonyme Spieldaten wie Spieleranzahl, Zahlenbereich und gewonnene Zahlen.",
-                "en": "Zahlenraten is an interactive multiplayer number guessing game where players gather in lobbies to collectively guess a secret number. The host creates a lobby with individually adjustable number range and player limit. New players join using a 5-character lobby code. All players take turns making guesses and receive feedback on whether the target number is higher or lower – color-coded for clarity. The game features real-time synchronization of all players, a spectator mode for players joining an ongoing match, and anti-cheating measures to ensure fair win distribution. Sessions remain active for 10 minutes, and game state is managed to provide seamless experiences. Statistics capture anonymous game data such as player count, number range, and guessed numbers."
-            },
-            "image": "zahlenraten-banner.jpg",
-            "url": "https://zahlenraten.emilsleeper.com/",
-            "debug_url": "http://localhost:5005/"
-        },
-        {
             "name": "Stadtführer Görlitz",
             "category": "apps",
             "description": {
-                "de": "Die App \"Stadtführer Görlitz\", gibt basierend auf dem Standort beim Laufen durch Görlitz zufällig Informationen über Gebäude und Sehenswürdigkeiten in der Nähe. Die App entsteht im Rahmen einer Arbeit um zu zeigen, wie gefährlich Standortortung sein kann, und wie man sie gut einsetzen kann.",
-                "en": "The app \"Stadtführer Görlitz\" gives, based on the location while walking through Görlitz, random information about buildings and sights nearby. The app is created as part of a work to show how dangerous location tracking can be, and how to use it well."
+                "de": "Die App \"Stadtführer Görlitz\" gibt basierend auf dem Standort beim Laufen durch Görlitz zufällig Informationen über Gebäude und Sehenswürdigkeiten in der Nähe. Die App entsteht im Rahmen einer Arbeit um zu zeigen, wie gefährlich Standortortung...",
+                "en": "The app \"Stadtführer Görlitz\" gives, based on the location while walking through Görlitz, random information about buildings and sights nearby. The app is created as part of a work to show how dangerous location tracking can be, and how to use..."
             },
             "image": "stadtfuehrer.jpg",
             "url": "https://stadt.emilsleeper.com/",

@@ -24,9 +24,14 @@
                         <div class="brand-subtitle">Emil Wege</div>
                     </div>
                 </div>
-                <ul>
-                    <li><a href="https://emilsleeper.com/">Go Back</a></li>
-                </ul>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <button id="themeToggle" class="icon-btn" aria-pressed="false" title="Toggle theme" style="background: none; border: none; cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center;">
+                        <img src="{{url_for('static',filename='sun.svg')}}" alt="Theme" class="icon" id="modetoggle" style="width: 24px; height: 24px;">
+                    </button>
+                    <ul>
+                        <li><a href="https://emilsleeper.com/">Go Back</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </header>
@@ -893,5 +898,6 @@
         checkExistingSession();
     </script>
     <script src="{{ url_for('static', filename='image-modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
 </body>
 </html> 

@@ -17,8 +17,14 @@ limiter = Limiter(
     storage_uri="memory://",
 )
 
-with open("stadt/stadt_database.json", "r") as f:
-    database = json.load(f)
+DATABASE_FILE = os.path.join(os.path.dirname(__file__), "stadt", "stadt_database.json")
+
+try:
+    with open(DATABASE_FILE, "r", encoding="utf-8") as f:
+        database = json.load(f)
+except Exception as e:
+    print(f"Error loading stadt_database.json: {e}")
+    database = {}
 
 def get_sort_key(object):
     try:
