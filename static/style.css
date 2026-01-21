@@ -259,9 +259,19 @@ main {
     margin: 0 auto;
 }
 
+@media (min-width: 900) {
+    .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
 @media (min-width: 1280px) {
     .project-gallery {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .gallery {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     }
 }
 
@@ -271,9 +281,18 @@ main {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .menu-toggle {
         display: block;
+    }
+    
+    .header-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        width: 100%;
+        padding: 0;
     }
     
     .nav-left {
@@ -287,6 +306,9 @@ main {
         transition: 0.3s;
         box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
         z-index: 100;
+        height: auto;
+        max-height: calc(100vh - 6rem);
+        overflow-y: auto;
     }
     
     .nav-left.active {
@@ -301,47 +323,110 @@ main {
     
     .nav-left ul li {
         width: 100%;
+        border-radius: 0;
     }
     
     .nav-left ul li a {
         display: block;
-        padding: 1.5rem;
-        font-size: 1.2rem;
-    }
-    
-    .header-container {
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        flex-wrap: nowrap;
-    }
-    .nav-left {
-        flex: 0 0 auto;
-        order: -1;
-    }
-    .logo-section, .header-controls {
-        flex: 1 0 auto;
-        order: 1;
+        padding: 1.2rem;
+        font-size: 1rem;
+        border-radius: 0;
     }
     
     .logo-section {
-        gap: 1%;
+        flex: 1;
+        gap: 8px;
+        justify-content: flex-start;
+        order: 1;
     }
     
     .logo-img {
-        width: 8%;
+        width: 2.5rem;
+        height: 2.5rem;
     }
     
     .brand-name {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
+        padding-bottom: 0;
     }
     
     .brand-subtitle {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
+    }
+    
+    .project-title {
+        font-size: 1.8rem;
+    }
+    
+    .header-controls {
+        flex-basis: auto;
+        gap: 10px;
+        order: 2;
+        margin-left: 0;
     }
     
     .project-gallery {
         grid-template-columns: 1fr;
+        gap: 1%;
+        max-width: 100%;
+        padding: 0 2%;
+    }
+    
+    .info {
+        flex-direction: column;
+        gap: 2%;
+        padding: 2%;
+    }
+    
+    .info .left {
+        width: 100%;
+    }
+    
+    .info .left .title {
+        font-size: 2rem;
+    }
+    
+    .info .left .description {
+        width: 100% !important;
+        font-size: 0.95rem;
+    }
+    
+    .info .right img {
+        height: auto;
+        max-width: 100%;
+        margin-right: 0;
+    }
+    
+    .gallery {
+        grid-template-columns: 1fr;
+        gap: 1%;
+    }
+    
+    .gallery iframe {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+    }
+
+    .info .download {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    .info .download p {
+        font-size: 1.3rem !important;
+        font-weight: 400;
+        width: 30%;
+        padding-left: 13% !important;
+        padding-right: 13% !important;
+    }
+
+    .info .right img {
+        height: 10rem !important;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
     }
 }
 
@@ -464,7 +549,7 @@ footer {
 
 .gallery {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-content: center;
     padding: 2%;
     gap: 2%;
@@ -539,8 +624,8 @@ footer {
 }
 
 .info .download p {
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 500;
     text-decoration: none;
     width: 40%;
     padding-right: 10%;
@@ -585,6 +670,7 @@ input[type="text"], input[type="number"] {
     background: #111827;
     color: #fff;
     font-size: 16px;
+    width: 90%;
 }
 
 input[type="text"]:focus, input[type="number"]:focus {

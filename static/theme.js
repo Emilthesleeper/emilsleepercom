@@ -25,4 +25,3 @@ function initTheme(defaultToDark = false) {
 }
 
 document.addEventListener('DOMContentLoaded', () => initTheme());
-

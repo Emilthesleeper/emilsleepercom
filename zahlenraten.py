@@ -694,10 +694,19 @@ def api_leave_lobby(lobby_code):
                 m['is_host'] = (m['player_id'] == new_host_id)
     
     if lobby_code in lobby_members:
+        members_before = lobby_members[lobby_code]
         lobby_members[lobby_code] = [
             m for m in lobby_members[lobby_code] 
             if m['player_id'] != user_id
         ]
+        members_after = lobby_members[lobby_code]
+        
+        if lobby_code in lobby_turn and lobby_turn[lobby_code] == user_id:
+            if members_after:
+                lobby_turn[lobby_code] = members_after[0]['player_id']
+            else:
+                if lobby_code in lobby_turn:
+                    del lobby_turn[lobby_code]
     
     if lobby_code in lobby_spectators:
         lobby_spectators[lobby_code] = [
