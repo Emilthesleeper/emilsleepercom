@@ -48,12 +48,20 @@ def get_modrinth_compatibility(slug: str):
     except Exception:
         return {}
 
-compatibility = get_modrinth_compatibility("smooth-gamemode-switcher")
+try:
+    compatibility = get_modrinth_compatibility("smooth-gamemode-switcher")
+    if compatibility is None:
+        compatibility = {}
+except Exception:
+    compatibility = {}
 
 @smoothgamemodeswitcher.route("/")
 def home():
+    global compatibility
     if getattr(wsgi_mod, "debug", ""):
-        compatibility = get_modrinth_compatibility("smooth-gamemode-switcher")
+        result = get_modrinth_compatibility("smooth-gamemode-switcher")
+        if result is not None:
+            compatibility = result
     try:
         footer = getattr(wsgi_mod, "FOOTER", "")
     except Exception:

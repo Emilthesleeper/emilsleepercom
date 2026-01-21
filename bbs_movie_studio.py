@@ -48,12 +48,20 @@ def get_modrinth_compatibility(slug: str):
     except Exception:
         return {}
 
-compatibility = get_modrinth_compatibility("bbs-movie-studio")
+try:
+    compatibility = get_modrinth_compatibility("bbs-movie-studio")
+    if compatibility is None:
+        compatibility = {}
+except Exception:
+    compatibility = {}
 
 @bbs.route("/")
 def home():
+    global compatibility
     if getattr(wsgi_mod, "debug", ""):
-        compatibility = get_modrinth_compatibility("bbs-movie-studio")
+        result = get_modrinth_compatibility("bbs-movie-studio")
+        if result is not None:
+            compatibility = result
     try:
         footer = getattr(wsgi_mod, "FOOTER", "")
     except Exception:

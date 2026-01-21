@@ -44,12 +44,20 @@ def get_curseforge_compatibility(slug: str):
     except Exception:
         return None
 
-compatibility = get_curseforge_compatibility("light-flight")
+try:
+    compatibility = get_curseforge_compatibility("light-flight")
+    if compatibility is None:
+        compatibility = {}
+except Exception:
+    compatibility = {}
 
 @lightflight.route("/")
 def home():
+    global compatibility
     if getattr(wsgi_mod, "debug", ""):
-        compatibility = get_curseforge_compatibility("light-flight")
+        result = get_curseforge_compatibility("light-flight")
+        if result is not None:
+            compatibility = result
     try:
         footer = getattr(wsgi_mod, "FOOTER", "")
     except Exception:
